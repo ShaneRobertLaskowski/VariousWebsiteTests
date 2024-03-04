@@ -1,0 +1,6 @@
+{
+  "allure": {
+    "title": "Test Results",
+    "directory": "allure-results"
+  }
+}
