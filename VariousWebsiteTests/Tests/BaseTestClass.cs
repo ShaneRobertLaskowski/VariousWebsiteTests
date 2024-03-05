@@ -12,15 +12,6 @@ using NUnit.Allure.Core;
 
 namespace VariousWebsiteTests.Tests
 {
-    /// <summary>
-    ///     include code that will take screenshot if an Nunit Test fails
-    ///     add other test base class stuff too.
-    /// </summary>
-
-    //should probably remove these and put in child class?
-    //[TestFixture("GeckoDriver")]
-    //[TestFixture("EdgeDriver")]
-    //[TestFixture("ChromeDriver")]
     [AllureNUnit]
     public class BaseTestClass
     {
