@@ -9,6 +9,7 @@ using WebDriverManager;
 using NUnit.Framework.Interfaces;
 using Allure.Net.Commons;
 using NUnit.Allure.Core;
+using AngleSharp.Text;
 
 namespace VariousWebsiteTests.Tests
 {
@@ -89,7 +90,7 @@ namespace VariousWebsiteTests.Tests
                 TestContext.AddTestAttachment(filePath); //this displays a link to show up in test result VS viewer
             }
         }
-        
+
         /// <summary>
         /// sets up Allure Annotations via the Allure API rather than directly writing in the
         /// Annotations above each Nunit Test method.
@@ -120,6 +121,39 @@ namespace VariousWebsiteTests.Tests
         {
             SetAllureDescriptors(testParam, testName, owner);
             AllureApi.SetSeverity(severityLevel);
+        }
+
+        /// <summary>
+        /// retrieves test data from a text file in csv format.  for each csv record, the number 
+        /// of data fields doesnt matter.
+        /// </summary>
+        /// <param name="csvFileLocPath"></param>
+        /// <returns>a two-dinmensional list of strings.  the 1st dimension describes the columns
+        ///     and the 2nd dimension describes the values of those columns.  </returns>
+        public static List<List<string>> RetrieveCsvData(string csvFileName)
+        {
+            List<List<string>> csvData = new List<List<string>>();
+            string csvFileLocPath = Path.Combine(Environment.CurrentDirectory, "TestData\\", csvFileName);
+
+            using (var reader = new StreamReader(csvFileLocPath))
+            {
+                int csvRecordCount = 0;
+                while (!reader.EndOfStream)
+                {
+                    string? line = reader.ReadLine();
+                    string[] values;
+                    if (line != null)
+                        values = line.Split(',');
+                    else values = new string[0];
+
+                    csvData.Add(new List<string>());
+                    for (int i = 0; i < values.Length; i++)
+                        csvData[csvRecordCount].Add(values[i]);
+
+                    csvRecordCount++;
+                }
+                return csvData;
+            }
         }
     }
 }

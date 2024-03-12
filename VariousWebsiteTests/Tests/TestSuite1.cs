@@ -1,6 +1,7 @@
 ﻿using Allure.Net.Commons;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Allure.Attributes;
+using OpenQA.Selenium.DevTools.V120.Target;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,10 @@ namespace VariousWebsiteTests.Tests
     [TestFixture("GeckoDriver")]
     [TestFixture("EdgeDriver")]
     [TestFixture("ChromeDriver")]
-    public class Test1 : BaseTestClass
+    public class TestSuite1 : BaseTestClass
     {
+        private const string CsvFileName = "";
+
         /// <summary>
         /// this Nunit Setup method should be called after the base class setup is ran as per Nunit Doc.
         /// make sure its not overiding the base class method.
@@ -26,18 +29,18 @@ namespace VariousWebsiteTests.Tests
             BaseWebpage b = new BaseWebpage(base.Driver);
             b.MaximizeBrowserWindow();
         }
-        public Test1() : base()
+        public TestSuite1() : base()
         {
             //meh
         }
 
-        public Test1(string nameOfDriver) : base(nameOfDriver)
+        public TestSuite1(string nameOfDriver) : base(nameOfDriver)
         {
             //stuff
         }
 
 
-        [TestCaseSource(nameof(getCSVData))]
+        [TestCaseSource(nameof(getHardCodedData))]
         [Test]
         public void TestNumberOne(string testdataitem)
         {
@@ -47,7 +50,11 @@ namespace VariousWebsiteTests.Tests
             //Console.WriteLine(testdataitem);
         }
 
-        public static List<string> getCSVData()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> getHardCodedData()
         {
             List<string> inputData = new List<string>();
             inputData.Add("test item 1");
@@ -56,5 +63,27 @@ namespace VariousWebsiteTests.Tests
 
             return inputData;
         }
+
+        /// <summary>
+        /// NEED to not hardcode data in this test method
+        /// </summary>
+        /// <param name="testData"></param>
+        [TestCaseSource(nameof(GetCsvData), new object[] {"sampleCSVtestFile.csv"})]
+        [Test]
+        public void TestNumberTwo(List<string> testData)
+        {
+            List<(string?, object?)> testParams = new List<(string?, object?)>();
+            testParams.Add((DriverName, DriverName));
+            base.SetAllureDescriptors(testParams, "Test Number 2", "Jane Smith", SeverityLevel.normal);
+            foreach (string dataPoint in testData)
+                Console.WriteLine(dataPoint);
+        }
+
+        public static List<List<string>> GetCsvData(string csvFileName)
+        {
+            List<List<string>> testData = RetrieveCsvData(csvFileName);
+            return testData;
+        }
+
     }
 }
