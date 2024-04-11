@@ -65,10 +65,10 @@ namespace VariousWebsiteTests.Tests
         }
 
         /// <summary>
-        /// NEED to not hardcode data in this test method
+        /// should add test name, and if test fails: time of failure.
         /// </summary>
         /// <param name="testData"></param>
-        [TestCaseSource(nameof(GetCsvData), new object[] {"sampleCSVtestFile.csv"})]
+        [TestCaseSource(nameof(GetCsvData), new object[] {"sampleCSVtestFile.csv", "TestData\\" })]
         [Test]
         public void TestNumberTwo(List<string> testData)
         {
@@ -79,9 +79,9 @@ namespace VariousWebsiteTests.Tests
                 Console.WriteLine(dataPoint);
         }
 
-        public static List<List<string>> GetCsvData(string csvFileName)
+        public static List<List<string>> GetCsvData(string csvFileName, string testDataFolderName)
         {
-            List<List<string>> testData = RetrieveCsvData(csvFileName);
+            List<List<string>> testData = RetrieveCsvData(csvFileName, testDataFolderName);
             return testData;
         }
 

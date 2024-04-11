@@ -130,10 +130,10 @@ namespace VariousWebsiteTests.Tests
         /// <param name="csvFileLocPath"></param>
         /// <returns>a two-dinmensional list of strings.  the 1st dimension describes the columns
         ///     and the 2nd dimension describes the values of those columns.  </returns>
-        public static List<List<string>> RetrieveCsvData(string csvFileName)
+        public static List<List<string>> RetrieveCsvData(string csvFileName, string testDataFolderName)
         {
             List<List<string>> csvData = new List<List<string>>();
-            string csvFileLocPath = Path.Combine(Environment.CurrentDirectory, "TestData\\", csvFileName);
+            string csvFileLocPath = Path.Combine(Environment.CurrentDirectory, testDataFolderName, csvFileName);
 
             using (var reader = new StreamReader(csvFileLocPath))
             {

@@ -29,9 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\page3\" />
-    <Folder Include="Pages\page2\" />
-    <Folder Include="Pages\page1\" />
+    <Folder Include="Pages\website2\" />
+    <Folder Include="Pages\website3\" />
   </ItemGroup>
 
   <ItemGroup>
